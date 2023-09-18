@@ -14,34 +14,44 @@ Follow these steps to set up your project environment and run the code.
 
 ## Step 3: Open the Terminal
 
-1. In VSCode, open the integrated terminal by pressing `Ctrl + J`.
+1. In VSCode, open the integrated terminal by pressing `Ctrl + J`(Windows), `CMD + J`(macOS).
 
 ## Step 4 (Windows): Install and Create a Virtual Environment
 
 1. If you haven't already installed `virtualenv` globally, run this command to install it:
 
+```
 pip install virtualenv
+```
 
 2. Create a virtual environment by running the following command in the terminal:
 
+```
 virtualenv env
+```
 
 ## Step 4 (macOS): Install and Create a Virtual Environment
 
 1. If you haven't already installed `virtualenv` globally, run this command to install it:
 
+```
 pip install virtualenv
+```
 
 2. Create a virtual environment by running the following command in the terminal:
 
+```
 virtualenv env
+```
 
 Activate environment:
-source env/bin/activate.ps1
+source env/bin/activate
 
 Install dependencies:
+
+```
 pip install -r requirements.txt
+```
 
 Move a copy of excel file to working directory
-Rename the excel file to "file"
-run main.py
+run main.py and follow the instructions
