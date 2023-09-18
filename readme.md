@@ -36,32 +36,12 @@ pip install virtualenv
 
 virtualenv env
 
+Activate environment:
+source env/bin/activate.ps1
 
-## Step 5: Activate the Virtual Environment
-
-1. Activate the virtual environment on Windows by running:
-
-.\env\Scripts\activate
-
-2. Activate the virtual environment on macOS by running:
-
-source env/bin/activate
-
-## Step 6: Install Dependencies
-
-1. While the virtual environment is active, install the project dependencies from `requirements.txt`:
-
+Install dependencies:
 pip install -r requirements.txt
 
-## Step 7: Prepare Excel File
-
-1. Move a copy of your Excel file to the project's working directory.
-2. Rename the Excel file to "file" (without quotes) if it has a different name.
-
-## Step 8: Run the Main Script
-
-1. Run the main script by executing:
-
-python main.py
-
-Now your project environment is set up, and you can start using the code. Make sure to activate the virtual environment whenever you work on the project, and deactivate it when you're finished by running `deactivate` in the terminal.
+Move a copy of excel file to working directory
+Rename the excel file to "file"
+run main.py

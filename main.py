@@ -1,57 +1,81 @@
 import pandas as pd
 from habanero import Crossref
+from tqdm import tqdm  # Import tqdm for the progress bar
 
-# Create a CrossRef client
-cr = Crossref()
+def get_user_input(prompt, valid_columns):
+    while True:
+        user_input = input(prompt)
+        if user_input in valid_columns:
+            return user_input
+        else:
+            print("Column not found. Try again.")
 
-# Load the Excel file into a DataFrame
-excel_file_path = "./file.xlsx"
-df = pd.read_excel(excel_file_path, engine='openpyxl')
+def main():
+    # Create a CrossRef client
+    cr = Crossref()
 
-# Select the first 100 rows using the head() method
-df_first_100_rows = df.head(10)
+    # Initialize df as None outside the try-except block
+    df = None
 
-# Iterate over the selected rows
-for index, row in df_first_100_rows.iterrows():
-    # Extract the article title from column "M"
-    article_title = row['Article Title']
-    
-    # Extract and split the author names from column "Authors" (assuming names are comma-separated)
-    author_names = row['Authors']
-    first_author_name = author_names.split(',')[0] if pd.notna(author_names) else ""
-    
-    # Check if the article title and first author name are not empty
-    if pd.notna(article_title) and first_author_name:
-        # Search for DOI using the article title and first author name
-        query = f"title:{article_title + ' ' + first_author_name}"
-        results = cr.works(query=query, limit=10)
-        
-        # Initialize variables to store the DOI and DOI link
-        doi = None
-        doi_url = None
-        
-        # Check if any results were found
-        if results['message']['total-results'] > 0:
-            # Iterate over the top 10 results
-            for result in results['message']['items'][:10]:
-                # Check if the result contains a DOI
-                if 'DOI' in result:
-                    doi = result['DOI']
-                    doi_url = f"https://doi.org/{doi}"
+    # Ask the user for the file name and validate its existence
+    while True:
+        filename = input("Enter the file name: ")
+        try:
+            df = pd.read_excel(f"{filename}.xlsx")
+            break
+        except FileNotFoundError:
+            print("File not found. Try again.")
+
+    # Ask the user for column names and validate their existence
+    if df is not None:
+        title_column = get_user_input("Enter the column name containing the article title: ", df.columns)
+        first_author_column = get_user_input("Enter the column name containing the first author's name (leave blank if not applicable): ", df.columns)
+        doi_column = get_user_input("Enter the column name containing the DOI number: ", df.columns)
+        doi_link_column = get_user_input("Enter the column name containing the DOI link: ", df.columns)
+
+    # Initialize a new DataFrame for the updated data
+    updated_df = df.copy()
+
+    # Create a tqdm progress bar
+    with tqdm(total=len(df)) as pbar:
+        # Iterate over the selected rows
+        for index, row in df.iterrows():
+            article_title = row[title_column]
+            first_author_name = row[first_author_column] if first_author_column else ""
+            
+            if pd.notna(article_title) and pd.notna(first_author_name):
+                query = f"title:{article_title + ' ' + first_author_name}"
+                try:
+                    results = cr.works(query=query, limit=10)
+                    doi, doi_url = None, None
                     
-                    # If the article title exactly matches the original query, use this result
-                    if article_title.lower() == result['title'][0].lower():
-                        break  # Exit the loop, using this result
-                        
-            # If there was no match with the original queried article title, use the first result
-            if doi is None:
-                first_result = results['message']['items'][0]
-                doi = first_result['DOI']
-                doi_url = f"https://doi.org/{doi}"
-                
-        # Assign the DOI number to column "BJ" and the DOI link to column "BK"
-        df.at[index, 'DOI'] = doi
-        df.at[index, 'DOI Link'] = doi_url
+                    if results['message']['total-results'] > 0:
+                        for result in results['message']['items'][:10]:
+                            if 'DOI' in result:
+                                doi = result['DOI']
+                                doi_url = f"https://doi.org/{doi}"
+                                if article_title.lower() == result['title'][0].lower():
+                                    break
+                        if doi is None:
+                            first_result = results['message']['items'][0]
+                            doi = first_result['DOI']
+                            doi_url = f"https://doi.org/{doi}"
+                    
+                    updated_df.at[index, doi_column] = doi
+                    updated_df.at[index, doi_link_column] = doi_url
+                    
+                except Exception as e:
+                    print(f"An error occurred while querying CrossRef: {str(e)}")
 
-# Save the updated DataFrame back to the Excel file
-df.to_excel(excel_file_path, index=False, engine='openpyxl')
+            # Update the progress bar
+            pbar.update(1)
+
+    # Save the updated DataFrame to a new Excel file
+    output_filename = input("Enter the output file name (or leave blank to overwrite the input file): ").strip()
+    if not output_filename:
+        output_filename = filename
+    updated_df.to_excel(output_filename, index=False, engine='openpyxl')
+    print(f"Updated data saved to {output_filename}")
+
+if __name__ == "__main__":
+    main()
