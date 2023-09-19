@@ -1,3 +1,13 @@
+<p align="center">
+  
+<img src="https://img.shields.io/badge/made%20by-berkeokur-blue.svg" >
+
+<img src="https://img.shields.io/badge/version-1.0 Beta 2-green.svg">
+
+<img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103" >
+
+<img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat">
+</p>
 
 # Project Setup Guide
 
@@ -27,7 +37,12 @@ pip install virtualenv
 2. Create a virtual environment by running the following command in the terminal:
 
 ```
-virtualenv env
+python -m venv env
+```
+3. Activate the virtual environment:
+
+```
+env\Scripts\activate
 ```
 
 ## Step 4 (macOS): Install and Create a Virtual Environment
@@ -44,14 +59,19 @@ pip install virtualenv
 virtualenv env
 ```
 
-Activate environment:
-source env/bin/activate
+3. Activate the virtual environment:
 
-Install dependencies:
+```
+source env/bin/activate
+```
+
+After creating and activating the virtual environment
+install the required dependencies:
 
 ```
 pip install -r requirements.txt
 ```
 
 Move a copy of excel file to working directory
-run main.py and follow the instructions
+
+Run main.py and follow the instructions
