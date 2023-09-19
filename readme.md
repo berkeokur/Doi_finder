@@ -1,3 +1,5 @@
+<h1 align="center">DOI Finder</h1>
+
 <p align="center">
   
 <img src="https://img.shields.io/badge/made%20by-berkeokur-blue.svg" >
