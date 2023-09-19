@@ -4,7 +4,7 @@
   
 <img src="https://img.shields.io/badge/made%20by-berkeokur-blue.svg" >
 
-<img src="https://img.shields.io/badge/version-1.0 Beta 2-green.svg">
+<img src="https://img.shields.io/badge/version-1.0 Beta 2-brightgreen?color=%23009FFD">
 
 <img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103" >
 </p>
