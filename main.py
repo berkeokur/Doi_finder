@@ -21,7 +21,7 @@ def main():
     while True:
         filename = input("Enter the file name: ")
         try:
-            df = pd.read_excel(f"{filename}.xlsx")
+            df = pd.read_excel(f"{filename}")
             break
         except FileNotFoundError:
             print("File not found. Try again.")
@@ -43,8 +43,11 @@ def main():
             article_title = row[title_column]
             first_author_name = row[first_author_column] if first_author_column else ""
             
-            if pd.notna(article_title) and pd.notna(first_author_name):
-                query = f"title:{article_title + ' ' + first_author_name}"
+            if pd.notna(article_title):
+                if pd.notna(first_author_name):
+                    query = f"title:{article_title + ' ' + first_author_name}"
+                else:
+                    query = f"title:{article_title}"
                 try:
                     results = cr.works(query=query, limit=10)
                     doi, doi_url = None, None
