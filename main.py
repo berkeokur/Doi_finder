@@ -1,6 +1,7 @@
 import pandas as pd
 from habanero import Crossref
-from tqdm import tqdm  # Import tqdm for the progress bar
+from tqdm import tqdm
+from fuzzywuzzy import fuzz
 
 def get_user_input(prompt, valid_columns):
     while True:
@@ -36,37 +37,50 @@ def main():
     # Initialize a new DataFrame for the updated data
     updated_df = df.copy()
 
+    # Temporary row limit
+    df = df.head(40)
+
     # Create a tqdm progress bar
     with tqdm(total=len(df)) as pbar:
+        # Create a dictionary to store query and result information
+        query_results = {}
+
         # Iterate over the selected rows
         for index, row in df.iterrows():
             article_title = row[title_column]
             first_author_name = row[first_author_column] if first_author_column else ""
-            
+
             if pd.notna(article_title):
                 if pd.notna(first_author_name):
-                    query = f"title:{article_title + ' ' + first_author_name}"
+                    query = f"title:{article_title} author:{first_author_name}"
                 else:
                     query = f"title:{article_title}"
                 try:
                     results = cr.works(query=query, limit=10)
-                    doi, doi_url = None, None
-                    
-                    if results['message']['total-results'] > 0:
-                        for result in results['message']['items'][:10]:
-                            if 'DOI' in result:
-                                doi = result['DOI']
-                                doi_url = f"https://doi.org/{doi}"
-                                if article_title.lower() == result['title'][0].lower():
-                                    break
-                        if doi is None:
-                            first_result = results['message']['items'][0]
-                            doi = first_result['DOI']
-                            doi_url = f"https://doi.org/{doi}"
-                    
-                    updated_df.at[index, doi_column] = doi
-                    updated_df.at[index, doi_link_column] = doi_url
-                    
+
+                    # Convert the article title to lowercase
+                    article_title_lower = article_title.lower()
+
+                    # Initialize variables for closest result
+                    closest_result = None
+                    closest_score = None
+
+                    # Iterate through the results to find the closest match
+                    for result in results['message']['items'][:10]:
+                        result_title_lower = result['title'][0].lower()
+                        similarity_score = fuzz.ratio(article_title_lower, result_title_lower)
+
+                        if closest_result is None or similarity_score > closest_score:
+                            closest_result = result
+                            closest_score = similarity_score
+
+                    # Check if a close match was found
+                    if closest_result is not None:
+                        doi = closest_result.get('DOI', '')
+                        doi_url = f"https://doi.org/{doi}"
+                        updated_df.at[index, doi_column] = doi
+                        updated_df.at[index, doi_link_column] = doi_url
+
                 except Exception as e:
                     print(f"An error occurred while querying CrossRef: {str(e)}")
 
