@@ -2,9 +2,9 @@
 
 <p align="center">
   
-<img src="https://img.shields.io/badge/made%20by-berkeokur-black?color=%230a14db" >
+<img src="https://img.shields.io/badge/Made%20by-berkeokur-black?color=%230a14db" >
 
-<img src="https://img.shields.io/badge/version-0.24%20Beta-black?color=%23630dcc">
+<img src="https://img.shields.io/badge/version-0.2.4%20Beta-black?color=%23630dcc">
 
 <img src="https://badges.frapsoft.com/os/v1/open-source.png?v=103" >
 
