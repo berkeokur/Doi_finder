@@ -4,10 +4,16 @@
   
 <img src="https://img.shields.io/badge/made%20by-berkeokur-blue.svg?color=%23009FFD" >
 
-<img src="https://img.shields.io/badge/version-1.0 Beta 2-brightgreen?color=%7fff00">
+<img src="https://img.shields.io/badge/version-0.2.2 Beta-brightgreen?color=%7fff00">
 
 <img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103" >
 </p>
+
+# About this project
+
+This is a project that automates searching for DOI numbers and links using article titles and author names.
+It is designed to be used with an excel file containing columns for article title, author name (optional), DOI number, and DOI Link .
+A GUI could be added in the future, if you're interested in that please let me know.
 
 # Project Setup Guide
 
