@@ -37,9 +37,6 @@ def main():
     # Initialize a new DataFrame for the updated data
     updated_df = df.copy()
 
-    # Temporary row limit
-    df = df.head(40)
-
     # Create a tqdm progress bar
     with tqdm(total=len(df)) as pbar:
         # Create a dictionary to store query and result information
