@@ -8,9 +8,9 @@
 
 <img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103" >
 
-[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+<img src="https://img.shields.io/badge/Made%20with-Python-1f425f.svg?link=https%3A%2F%2Fwww.python.org%2F">
 
-[![GitHub license](https://badgen.net/github/license/Naereen/Strapdown.js)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
+<img src="https://img.shields.io/badge/License-MIT-blue?link=https%3A%2F%2Fwww.python.org%2F">
 
 </p>
 
