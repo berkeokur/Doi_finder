@@ -2,15 +2,15 @@
 
 <p align="center">
   
-<img src="https://img.shields.io/badge/made%20by-berkeokur-blue.svg?color=%23009FFD" >
+<img src="https://img.shields.io/badge/made%20by-berkeokur-black?color=%230a14db" >
 
-<img src="https://img.shields.io/badge/version-0.2.2 Beta-brightgreen?color=%7fff00">
+<img src="https://img.shields.io/badge/version-0.24%20Beta-black?color=%23630dcc">
 
-<img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103" >
+<img src="https://badges.frapsoft.com/os/v1/open-source.png?v=103" >
 
-<img src="https://img.shields.io/badge/Made%20with-Python-1f425f.svg?link=https%3A%2F%2Fwww.python.org%2F">
+<img src="https://img.shields.io/badge/Made%20with-Python-black?color=%23d412ac&link=www.python.org">
 
-<img src="https://img.shields.io/badge/License-MIT-blue?link=https%3A%2F%2Fwww.python.org%2F">
+<img src="https://img.shields.io/badge/License-MIT-brightgreen?link=https%3A%2F%2Fgithub.com%2Fberkeokur%2FDoi_finder%2Fblob%2Fmain%2FLICENSE">
 
 </p>
 
