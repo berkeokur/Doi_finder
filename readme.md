@@ -7,6 +7,11 @@
 <img src="https://img.shields.io/badge/version-0.2.2 Beta-brightgreen?color=%7fff00">
 
 <img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103" >
+
+[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+
+[![GitHub license](https://badgen.net/github/license/Naereen/Strapdown.js)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
+
 </p>
 
 # About this project
